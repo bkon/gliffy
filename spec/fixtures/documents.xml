@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response xmlns="http://www.gliffy.com" success="true">
+    <documents>
+        <document num-versions="4" id="1000000">
+            <name>Проверка</name>
+            <mod-date>1215538283000</mod-date>
+            <create-date>1215538283000</create-date>
+            <published-date>1215538283000</published-date>
+            <owner id="202">
+                <username>monty</username>
+                <email>monty@BurnsODyne.apiuser.gliffy.com</email>
+            </owner>
+        </document>
+        <document is-public="true" num-versions="5" id="1000002">
+            <name>SNPP Domain Model</name>
+            <mod-date>1215538283000</mod-date>
+            <create-date>1215538283000</create-date>
+            <published-date>1215538283000</published-date>
+            <owner id="203">
+                <username>smithers</username>
+                <email>smithers@BurnsODyne.apiuser.gliffy.com</email>
+            </owner>
+        </document>
+        <document num-versions="2" id="1000001">
+            <name>World Domination Flow</name>
+            <mod-date>1215538283000</mod-date>
+            <create-date>1215538283000</create-date>
+            <published-date>1215538283000</published-date>
+            <owner id="202">
+                <username>monty</username>
+                <email>monty@BurnsODyne.apiuser.gliffy.com</email>
+            </owner>
+        </document>
+    </documents>
+</response>

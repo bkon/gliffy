@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response xmlns="http://www.gliffy.com" success="true">
+    <documents>
+        <document is-public="true" num-versions="5" id="%{document_id}">
+            <name>%{document_name}</name>
+            <mod-date>1215538283000</mod-date>
+            <create-date>1215538284000</create-date>
+            <published-date>1215538285000</published-date>
+            <owner id="203">
+                <username>smithers</username>
+                <email>smithers@BurnsODyne.apiuser.gliffy.com</email>
+            </owner>
+        </document>
+    </documents>
+</response>

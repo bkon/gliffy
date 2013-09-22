@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response xmlns="http://www.gliffy.com" success="true">
+    <folders>
+        <folder is-default="true">
+            <name>ROOT</name>
+            <path>ROOT</path>
+            <folder is-default="false">
+                <name>Burns Top Secret</name>
+                <path>ROOT/Burns Top Secret</path>
+            </folder>
+            <folder is-default="false">
+                <name>Casino</name>
+                <path>ROOT/Casino</path>
+            </folder>
+            <folder is-default="false">
+                <name>Drunks Only</name>
+                <path>ROOT/Drunks Only</path>
+            </folder>
+            <folder is-default="false">
+                <name>Simpsons Family</name>
+                <path>ROOT/Simpsons Family</path>
+                <folder is-default="false">
+                    <name>Bart Only</name>
+                    <path>ROOT/Simpsons Family/Bart Only</path>
+                </folder>
+                <folder is-default="false">
+                    <name>Maggie and Lisas Stuff</name>
+                    <path>ROOT/Simpsons Family/Maggie and Lisas Stuff</path>
+                </folder>
+            </folder>
+        </folder>
+    </folders>
+</response>

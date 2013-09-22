@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response xmlns="http://www.gliffy.com" success="true">
+    <accounts>
+        <account max-users="10"
+                 account-type="Business"
+                 terms="true" 
+                 id="%{account_id}">
+            <name>BurnsODyne</name>
+            <expiration-date>%{expiration}</expiration-date>
+            <users>
+                <user id="209">
+                    <username>barney</username>
+                    <email>barney@BurnsODyne.apiuser.gliffy.com</email>
+                </user>
+                <user id="205">
+                     <username>bart</username>
+                     <email>bart@BurnsODyne.apiuser.gliffy.com</email>
+                </user>
+                <user id="210">
+                     <username>discostu</username>
+                     <email>discostu@BurnsODyne.apiuser.gliffy.com</email>
+                </user>
+            </users>
+        </account>
+    </accounts>
+</response>
