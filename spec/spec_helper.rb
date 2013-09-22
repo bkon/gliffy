@@ -3,7 +3,7 @@ require 'nokogiri'
 
 require 'simplecov'
 SimpleCov.command_name "test:units"
-SimpleCov.start do 
+SimpleCov.start do
     add_filter '/spec/'
     add_filter '/lib/gliffy/oauth/'
     coverage_dir '/reports/coverage'
@@ -22,10 +22,10 @@ end
 def fixture_xml(filename, substitutions = {})
     raw_document = IO.read(
         File.join(
-            File.dirname(__FILE__), 
+            File.dirname(__FILE__),
             "fixtures",
             "#{filename}.xml"
-        ) 
+        )
     )
 
     raw_document % substitutions
