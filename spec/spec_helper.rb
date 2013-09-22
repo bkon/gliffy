@@ -7,6 +7,8 @@ SimpleCov.start do
     add_filter '/spec/'
     add_filter '/lib/gliffy/oauth/'
     coverage_dir '/reports/coverage'
+    minimum_coverage 100
+    refuse_coverage_drop
 end
 
 require 'gliffy'
