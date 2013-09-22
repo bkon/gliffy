@@ -8,3 +8,5 @@ end
 
 desc "Run test"
 task :default => :spec
+
+ENV['CI_REPORTS'] = 'reports/tests'

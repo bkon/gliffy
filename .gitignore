@@ -2,5 +2,4 @@ Gemfile.lock
 *.gem
 bin
 tmp
-coverage
-spec/reports
+reports

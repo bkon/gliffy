@@ -6,6 +6,7 @@ SimpleCov.command_name "test:units"
 SimpleCov.start do 
     add_filter '/spec/'
     add_filter '/lib/gliffy/oauth/'
+    coverage_dir '/reports/coverage'
 end
 
 require 'gliffy'
