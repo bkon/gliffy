@@ -1,0 +1,42 @@
+<project name="Gliffy gem" default="build" basedir=".">
+  <description>
+    Builds Gliffy Ruby gem
+  </description>
+
+  <target name="clean">
+    <delete dir="reports"/>
+    <delete dir="tmp"/>
+    <delete>
+      <fileset dir="." includes="*.gem"></fileset>
+    </delete>
+  </target>
+
+  <target name="tests">
+    <exec executable="rake"
+          failonerror="true">
+      <arg line="ci:setup:rspec"/>
+      <arg line="spec"/>
+    </exec>
+  </target>
+
+  <target name="gem">
+    <exec executable="gem"
+          failonerror="true">
+      <arg line="build"/>
+      <arg line="gliffy.gemspec"/>
+    </exec>
+  </target>
+
+  <target name="push">
+    <apply executable="gem"
+          failonerror="true">
+      <arg line="push"/>
+      <fileset dir=".">
+        <include name="*.gem"/>
+      </fileset>
+    </apply>
+  </target>
+
+  <target name="build"
+          depends="tests, gem"/>
+</project>
