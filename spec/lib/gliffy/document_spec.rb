@@ -101,6 +101,11 @@ describe Gliffy::Document do
     expect(document.png).to be_instance_of Gliffy::Document::PNG
   end
 
+  it "has SVG representation" do
+    expect(document).to respond_to :svg
+    expect(document.svg).to be_instance_of Gliffy::Document::SVG
+  end
+
   it "has singleton-life behavior" do
     doc1 = Gliffy::Document.load(owner, response.node("//g:document"))
     expect(doc1).to be document

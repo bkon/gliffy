@@ -6,6 +6,7 @@ require 'gliffy/api/response'
 require 'gliffy/account'
 require 'gliffy/document'
 require 'gliffy/document/png'
+require 'gliffy/document/svg'
 require 'gliffy/folder'
 
 require 'gliffy/oauth/helper'

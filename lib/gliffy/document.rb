@@ -40,6 +40,10 @@ module Gliffy
       )
     end
 
+    def svg
+      Document::SVG.new(self)
+    end
+
     def png
       Document::PNG.new(self)
     end
