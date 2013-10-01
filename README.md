@@ -15,7 +15,21 @@ Basic usage
     doc = account.document(DOCUMENT_ID)
     doc.name
     doc.editor(RETURN_TO, RETURN_BUTTON_TEXT)
+
+#### Download document as PNG
+
     doc.png.full
+    doc.png.medium
+    doc.png.small
+    doc.png.thumbnail
+
+#### Download document as SVG
+
+    doc.svg.content
+
+#### Download document as XML
+
+    doc.xml.content
 
 ### Navigating folders
 
