@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8-unix -*-
 require 'spec_helper'
 
 describe Gliffy::Folder do
