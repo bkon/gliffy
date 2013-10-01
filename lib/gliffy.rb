@@ -5,7 +5,7 @@ require 'gliffy/api/facade'
 require 'gliffy/api/response'
 require 'gliffy/account'
 require 'gliffy/document'
-require 'gliffy/document_png'
+require 'gliffy/document/png'
 require 'gliffy/folder'
 
 require 'gliffy/oauth/helper'
