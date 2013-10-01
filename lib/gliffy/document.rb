@@ -44,6 +44,10 @@ module Gliffy
       Document::SVG.new(self)
     end
 
+    def xml
+      Document::XML.new(self)
+    end
+
     def png
       Document::PNG.new(self)
     end
