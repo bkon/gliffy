@@ -5,9 +5,9 @@ describe Gliffy::Document do
     Gliffy::Document.clear_cache
   end
 
-  let(:api)  { double(Gliffy::API) }
+  let(:api)  { double(Gliffy::API::Facade) }
   let(:owner) do
-    owner = double(Gliffy::Account) 
+    owner = double(Gliffy::Account)
     owner.stub(:api).and_return(api)
     owner
   end
@@ -114,5 +114,26 @@ describe Gliffy::Document do
   it "has singleton-life behavior" do
     doc1 = Gliffy::Document.load(owner, response.node("//g:document"))
     expect(doc1).to be document
+  end
+
+  it "can be renamed" do
+    expect(document).to respond_to :rename
+  end
+
+  context "when renamed" do
+    let (:new_name) { "NEW DOCUMENT NAME" }
+    before :each do
+      api.stub(:update_document_metadata)
+      document.rename new_name
+    end
+
+    it "changes the name to the new value" do
+      expect(document.name).to eq new_name
+    end
+
+    it "calls rename method of the REST API" do
+      expect(api).to have_received(:update_document_metadata)
+        .with(document_id, new_name, nil)
+    end
   end
 end

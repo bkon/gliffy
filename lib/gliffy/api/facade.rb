@@ -30,7 +30,32 @@ module Gliffy
             :action => 'get')
       end
 
+      def update_document_metadata(document_id, name, shared)
+        params = {
+          :action => "update",
+        }
+
+        if not name.nil?
+          params[:documentName] = name
+        end
+
+        if not shared.nil?
+          params[:public] = shared ? "true" : "false"
+        end
+
+        post("/accounts/#{account_id}/documents/#{document_id}/meta-data.xml",
+             params)
+      end
+
       private
+
+      def api
+        @api
+      end
+
+      def account_id
+        api.account_id
+      end
 
       def initialize(protocol, api)
         @protocol = protocol

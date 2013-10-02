@@ -31,6 +31,12 @@ module Gliffy
       @loaded = {}
     end
 
+    def rename(new_name)
+      @name = new_name
+
+      api.update_document_metadata(id, new_name, nil)
+    end
+
     def editor(return_url, return_text)
       api.web(
         "/gliffy/",

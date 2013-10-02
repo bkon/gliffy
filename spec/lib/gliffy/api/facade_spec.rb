@@ -67,10 +67,47 @@ shared_examples_for "an API facade" do
       expect(facade.get_folders(account_id)).to be response
     end
   end
+
+  context "when updating document metadata" do
+    let(:document_id) { 221 }
+    let(:document_name) { "NEW DOCUMENT" }
+    let(:public_flag) { true }
+    let(:public_text) { "true" }
+
+    it "sends POST request" do
+      facade
+        .should_receive(:post)
+        .with("/accounts/#{account_id}/documents/#{document_id}/meta-data.xml",
+              hash_including(:action => "update",
+                             :documentName => document_name,
+                             :public => public_text))
+
+      facade.update_document_metadata(document_id, document_name, public_flag)
+    end
+
+    it "doesn't send name if no name is passed to the method" do
+      facade
+        .should_receive(:post)
+        .with(anything(),
+              hash_not_including(:documentName))
+
+      facade.update_document_metadata(document_id, nil, public_flag)
+    end
+
+    it "doesn't send public flag if it is not passed to the method" do
+      facade
+        .should_receive(:post)
+        .with(anything(),
+              hash_not_including(:public))
+
+      facade.update_document_metadata(document_id, document_name, nil)
+    end
+  end
 end
 
 describe Gliffy::API::Facade do
-  let(:api) { double(Gliffy::API) }
+  let(:account_id) { 99 }
+  let(:api) { double(Gliffy::API, { :account_id => account_id }) }
   let(:response) { double(Gliffy::API::Response) }
   let(:params) {
     {
