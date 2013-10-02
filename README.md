@@ -13,7 +13,10 @@ Basic usage
 ### Working with documents
 
     doc = account.document(DOCUMENT_ID)
+
     doc.name
+    doc.rename("NEW NAME")
+
     doc.editor(RETURN_TO, RETURN_BUTTON_TEXT)
 
 #### Download document as PNG
