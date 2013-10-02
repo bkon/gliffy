@@ -47,6 +47,11 @@ module Gliffy
              params)
       end
 
+      def delete_document(document_id)
+        post("/accounts/#{account_id}/documents/#{document_id}.xml",
+             :action => "delete")
+      end
+
       private
 
       def api

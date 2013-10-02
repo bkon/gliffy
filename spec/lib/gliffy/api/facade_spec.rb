@@ -103,6 +103,23 @@ shared_examples_for "an API facade" do
       facade.update_document_metadata(document_id, document_name, nil)
     end
   end
+
+  it "allows user to delete a document" do
+    expect(facade).to respond_to :delete_document
+  end
+
+  context "when deleting a document" do
+    let(:document_id) { 221 }
+
+    it "sends POST request" do
+      facade
+        .should_receive(:post)
+        .with("/accounts/#{account_id}/documents/#{document_id}.xml",
+              hash_including(:action => "delete"))
+
+      facade.delete_document(document_id)
+    end
+  end
 end
 
 describe Gliffy::API::Facade do

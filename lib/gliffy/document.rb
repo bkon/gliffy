@@ -37,6 +37,10 @@ module Gliffy
       api.update_document_metadata(id, new_name, nil)
     end
 
+    def delete
+      api.delete_document(id)
+    end
+
     def editor(return_url, return_text)
       api.web(
         "/gliffy/",

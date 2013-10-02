@@ -136,4 +136,20 @@ describe Gliffy::Document do
         .with(document_id, new_name, nil)
     end
   end
+
+  it "can be deleted" do
+    expect(document).to respond_to :delete
+  end
+
+  context "when deleted" do
+    before :each do
+      api.stub(:delete_document)
+      document.delete
+    end
+
+    it "calls REST API" do
+      expect(api).to have_received(:delete_document)
+        .with(document_id)
+    end
+  end
 end
