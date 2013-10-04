@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Gliffy::Folder do
   let(:account_id) { 100 }
-  let(:api) { double(Gliffy::API) }
+  let(:api) { double(Gliffy::API::Facade) }
   let(:account) { double(Gliffy::Account, :api => api, :id => account_id) }
 
   subject(:folder) do
@@ -170,6 +170,27 @@ describe Gliffy::Folder do
         f2 = Gliffy::Folder.new(@account, "F2", "/ROOT/F2", [])
         expect { f1.parent = f2 }.to raise_error
       end
+    end
+  end
+
+  it "allows us to create a document" do
+    expect(folder).to respond_to :create_document
+  end
+
+  context "when creating a document" do
+    let(:document_name) { "NEW DOCUMENT NAME" }
+
+    before :each do
+      api.stub(:create_document)
+      folder.create_document(document_name)
+    end
+
+    it "calls REST API" do
+      expect(api).to have_received(:create_document)
+        .with(document_name,
+              Gliffy::Document::TYPE_DIAGRAM,
+              nil,
+              folder.path)
     end
   end
 end

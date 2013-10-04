@@ -52,6 +52,25 @@ module Gliffy
              :action => "delete")
       end
 
+      def create_document(name, type, original_id, path)
+        params = {
+          :action => "create",
+          :documentName => name,
+          :documentType => type
+        }
+
+        if not original_id.nil?
+          params[:templateDiagramId] = original_id
+        end
+
+        if not path.nil?
+          params[:folderPath] = path
+        end
+
+        post("/accounts/#{account_id}/documents.xml",
+             params)
+      end
+
       private
 
       def api

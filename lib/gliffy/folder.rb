@@ -34,6 +34,10 @@ module Gliffy
       @parent = parent
     end
 
+    def create_document(name)
+      api.create_document(name, Gliffy::Document::TYPE_DIAGRAM, nil, path)
+    end
+
     def documents
       @documents ||= load_documents
     end

@@ -120,6 +120,49 @@ shared_examples_for "an API facade" do
       facade.delete_document(document_id)
     end
   end
+
+  it "allows user to create a document" do
+    expect(facade).to respond_to :create_document
+  end
+
+  context "when creating a document" do
+    let(:document_name) { "NAME" }
+    let(:document_type) { Gliffy::Document::TYPE_DIAGRAM }
+    let(:original_id) { 45 }
+    let(:path) { "ROOT/FOLDER" }
+
+    it "sends POST request" do
+      facade.should_receive(:post)
+        .with("/accounts/#{account_id}/documents.xml",
+              hash_including(:action => "create",
+                             :documentName => document_name,
+                             :documentType => document_type,
+                             :templateDiagramId => original_id,
+                             :folderPath => path))
+
+      facade.create_document(document_name, document_type, original_id, path)
+    end
+
+    context "when template id is not provided" do
+      it "doesn't send template id" do
+        facade.should_receive(:post)
+          .with(anything(),
+                hash_not_including(:templateDiagramId))
+
+        facade.create_document(document_name, document_type, nil, path)
+      end
+    end
+
+    context "when path is not provided" do
+      it "doesn't send path" do
+        facade.should_receive(:post)
+          .with(anything(),
+                hash_not_including(:folderPath))
+
+        facade.create_document(document_name, document_type, original_id, nil)
+      end
+    end
+  end
 end
 
 describe Gliffy::API::Facade do

@@ -1,5 +1,7 @@
 module Gliffy
   class Document
+    TYPE_DIAGRAM = "diagram"
+
     attr_reader :owner
     attr_reader :id
     attr_reader :is_public
