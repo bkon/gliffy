@@ -19,6 +19,8 @@ Basic usage
 
     doc.editor(RETURN_TO, RETURN_BUTTON_TEXT)
 
+    doc.delete
+
 #### Download document as PNG
 
     doc.png.full
