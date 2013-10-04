@@ -178,7 +178,7 @@ describe Gliffy::API do
         response
       )
 
-      api.impersonate("test@test.com")      
+      api.impersonate("test@test.com")
     end
 
     it "updates OAuth token using server response" do
