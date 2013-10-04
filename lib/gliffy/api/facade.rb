@@ -17,7 +17,7 @@ module Gliffy
         response = api.get(api_root + partial_url, params)
 
         if response.error?
-          raise Gliffy::API::Error.new
+          handle_error response
         end
 
         response
@@ -27,7 +27,7 @@ module Gliffy
         response = api.post(api_root + partial_url, params)
 
         if response.error?
-          raise Gliffy::API::Error.new
+          handle_error response
         end
 
         response
@@ -84,6 +84,13 @@ module Gliffy
       end
 
       private
+
+      def handle_error(response)
+        code = response.integer("//g:response/g:error/@http-status")
+        text = response.string("//g:response/g:error/text()")
+
+        raise Gliffy::API::Error.new(code, text)
+      end
 
       def api
         @api
