@@ -10,19 +10,31 @@ module Gliffy
       end
 
       def raw(partial_url, params = {})
-        @api.raw(api_root + partial_url, params)
+        api.raw(api_root + partial_url, params)
       end
 
       def get(partial_url, params)
-        @api.get(api_root + partial_url, params)
+        response = api.get(api_root + partial_url, params)
+
+        if response.error?
+          raise Gliffy::API::Error.new
+        end
+
+        response
       end
 
       def post(partial_url, params)
-        @api.post(api_root + partial_url, params)
+        response = api.post(api_root + partial_url, params)
+
+        if response.error?
+          raise Gliffy::API::Error.new
+        end
+
+        response
       end
 
       def web(partial_url, params)
-        @api.web(web_root + partial_url, params)
+        api.web(web_root + partial_url, params)
       end
 
       def get_folders(account_id)

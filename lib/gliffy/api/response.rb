@@ -32,6 +32,10 @@ module Gliffy
         !@base.at_xpath(path, namespaces).nil?
       end
 
+      def error?
+        exists("//g:response[@success='false']")
+      end
+
       private
 
       # Gliffy XML namespace to be used in XPath expressions

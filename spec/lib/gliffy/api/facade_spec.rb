@@ -163,12 +163,44 @@ shared_examples_for "an API facade" do
       end
     end
   end
+
+  context "when POST request returns an error" do
+    let(:response) { Gliffy::API::Response.new(fixture("error-401")) }
+
+    before :each do
+      api.stub(
+        :post
+      ).and_return(
+        response
+      )
+    end
+
+    it "throws an exception" do
+      expect { facade.post("/random_url", {}) }.to raise_error(Gliffy::API::Error)
+    end
+  end
+
+  context "when GET request returns an error" do
+    let(:response) { Gliffy::API::Response.new(fixture("error-401")) }
+
+    before :each do
+      api.stub(
+        :get
+      ).and_return(
+        response
+      )
+    end
+
+    it "throws an exception" do
+      expect { facade.get("/random_url", {}) }.to raise_error(Gliffy::API::Error)
+    end
+  end
 end
 
 describe Gliffy::API::Facade do
   let(:account_id) { 99 }
   let(:api) { double(Gliffy::API, { :account_id => account_id }) }
-  let(:response) { double(Gliffy::API::Response) }
+  let(:response) { double(Gliffy::API::Response, :error? => false) }
   let(:params) {
     {
       :test1 => "value1",

@@ -1,6 +1,7 @@
 require 'date'
 
 require 'gliffy/api'
+require 'gliffy/api/error'
 require 'gliffy/api/facade'
 require 'gliffy/api/response'
 require 'gliffy/account'
