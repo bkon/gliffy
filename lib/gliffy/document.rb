@@ -41,6 +41,11 @@ module Gliffy
 
     def delete
       api.delete_document(id)
+      @is_deleted = true
+    end
+
+    def deleted?
+      @is_deleted
     end
 
     def editor(return_url, return_text)
@@ -84,6 +89,8 @@ module Gliffy
       @modified = params[:modified]
       @created = params[:created]
       @published = params[:published]
+
+      @is_deleted = false
     end
   end
 end

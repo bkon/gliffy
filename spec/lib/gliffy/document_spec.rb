@@ -141,6 +141,16 @@ describe Gliffy::Document do
     expect(document).to respond_to :delete
   end
 
+  it "has flag indicating whether this object has been deleted" do
+    expect(document).to respond_to :deleted?
+  end
+
+  context "when not deleted" do
+    it "knows it" do
+      expect(document.deleted?).to be_false
+    end
+  end
+
   context "when deleted" do
     before :each do
       api.stub(:delete_document)
@@ -150,6 +160,10 @@ describe Gliffy::Document do
     it "calls REST API" do
       expect(api).to have_received(:delete_document)
         .with(document_id)
+    end
+
+    it "knows it" do
+      expect(document.deleted?).to be_true
     end
   end
 end
