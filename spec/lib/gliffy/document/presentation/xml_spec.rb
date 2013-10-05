@@ -1,9 +1,13 @@
 require 'spec_helper'
 
-describe Gliffy::Document::XML do
+describe Gliffy::Document::Presentation::XML do
     let(:content) { "SAMPLE CONTENT" }
     let(:document) { double(Gliffy::Document) }
-    let(:xml) { Gliffy::Document::XML.new(document) }
+    let(:xml) { Gliffy::Document::Presentation::XML.new(document) }
+
+    it_should_behave_like "a document presentation" do
+      let(:presentation) { xml }
+    end
 
     it "has a reference to the original document" do
         expect(xml).to respond_to :document

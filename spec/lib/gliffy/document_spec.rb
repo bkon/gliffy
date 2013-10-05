@@ -98,17 +98,17 @@ describe Gliffy::Document do
 
   it "has an PNG image" do
     expect(document).to respond_to :png
-    expect(document.png).to be_instance_of Gliffy::Document::PNG
+    expect(document.png).to be_instance_of Gliffy::Document::Presentation::PNG
   end
 
   it "has SVG representation" do
     expect(document).to respond_to :svg
-    expect(document.svg).to be_instance_of Gliffy::Document::SVG
+    expect(document.svg).to be_instance_of Gliffy::Document::Presentation::SVG
   end
 
   it "has XML representation" do
     expect(document).to respond_to :xml
-    expect(document.xml).to be_instance_of Gliffy::Document::XML
+    expect(document.xml).to be_instance_of Gliffy::Document::Presentation::XML
   end
 
   it "has singleton-life behavior" do

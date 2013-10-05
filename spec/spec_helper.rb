@@ -12,6 +12,7 @@ SimpleCov.start do
 end
 
 require 'gliffy'
+Dir["./spec/support/**/*.rb"].sort.each {|f| require f}
 
 def fixture(filename, substitutions = {})
     Nokogiri::XML(

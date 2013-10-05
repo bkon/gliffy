@@ -1,9 +1,13 @@
 require 'spec_helper'
 
-describe Gliffy::Document::SVG do
+describe Gliffy::Document::Presentation::SVG do
     let(:content) { "SAMPLE CONTENT" }
     let(:document) { double(Gliffy::Document) }
-    let(:svg) { Gliffy::Document::SVG.new(document) }
+    let(:svg) { Gliffy::Document::Presentation::SVG.new(document) }
+
+    it_should_behave_like "a document presentation" do
+      let(:presentation) { svg }
+    end
 
     it "has a reference to the original document" do
         expect(svg).to respond_to :document

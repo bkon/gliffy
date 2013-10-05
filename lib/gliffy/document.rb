@@ -53,15 +53,15 @@ module Gliffy
     end
 
     def svg
-      Document::SVG.new(self)
+      Document::Presentation::SVG.new(self)
     end
 
     def xml
-      Document::XML.new(self)
+      Document::Presentation::XML.new(self)
     end
 
     def png
-      Document::PNG.new(self)
+      Document::Presentation::PNG.new(self)
     end
 
     def public?
