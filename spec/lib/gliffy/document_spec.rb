@@ -152,8 +152,14 @@ describe Gliffy::Document do
   end
 
   context "when deleted" do
+    let(:observer) { double(Object) }
+
     before :each do
       api.stub(:delete_document)
+
+      observer.stub(:update)
+      document.add_observer(observer)
+
       document.delete
     end
 
@@ -164,6 +170,10 @@ describe Gliffy::Document do
 
     it "knows it" do
       expect(document.deleted?).to be_true
+    end
+
+    it "notifies observers" do
+      expect(observer).to have_received(:update).with(:delete)
     end
   end
 end

@@ -1,5 +1,9 @@
+require "observer"
+
 module Gliffy
   class Document
+    include Observable
+
     TYPE_DIAGRAM = "diagram"
 
     attr_reader :owner
@@ -42,6 +46,9 @@ module Gliffy
     def delete
       api.delete_document(id)
       @is_deleted = true
+
+      changed
+      notify_observers :delete
     end
 
     def deleted?
