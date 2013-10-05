@@ -173,7 +173,7 @@ describe Gliffy::Document do
     end
 
     it "notifies observers" do
-      expect(observer).to have_received(:update).with(:delete)
+      expect(observer).to have_received(:update).with(:delete, document)
     end
   end
 end
