@@ -46,6 +46,16 @@ module Gliffy
       path == "ROOT"
     end
 
+    # observer callback
+    def update(event, target)
+      case event
+      when :delete
+        @documents = @documents.delete_if { |element| element == target }
+      else
+        raise ArgumentError.new(event)
+      end
+    end
+
     private
 
     def api
@@ -69,7 +79,13 @@ module Gliffy
 
       response
         .nodes('//g:document')
-        .map { |n| Gliffy::Document.load(owner, n) }
+        .map { |n| load_document n }
+    end
+
+    def load_document(n)
+      document = Gliffy::Document.load(owner, n)
+      document.add_observer(self)
+      document
     end
   end
 end

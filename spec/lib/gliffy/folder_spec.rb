@@ -193,4 +193,32 @@ describe Gliffy::Folder do
               folder.path)
     end
   end
+
+  context "when receives a document delete notification" do
+    before :each do
+      api.should_receive(
+        :get
+      ).and_return(
+        Gliffy::API::Response.new(fixture("documents"))
+      )
+    end
+
+    it "removes document from the document list" do
+      original_length = folder.documents.length
+      document = folder.documents[1]
+
+      folder.update(:delete, document)
+
+      expect(folder.documents.length).to eq original_length - 1
+      expect(folder.documents).to_not include document
+    end
+  end
+
+  context "when receives an unknown event" do
+    let(:document) { double(Gliffy::Document) }
+
+    it "throws an exception" do
+      expect { folder.update(:unknown, document) }.to raise_error ArgumentError
+    end
+  end
 end
