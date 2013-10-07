@@ -49,7 +49,7 @@ module Gliffy
     # observer callback
     def update(event, target)
       case event
-      when :delete
+      when :document_deleted
         @documents = @documents.delete_if { |element| element == target }
       else
         raise ArgumentError.new(event)

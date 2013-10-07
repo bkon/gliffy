@@ -200,7 +200,7 @@ describe Gliffy::Folder do
       original_length = folder.documents.length
       document = folder.documents[1]
 
-      folder.update(:delete, document)
+      folder.update(:document_deleted, document)
 
       expect(folder.documents.length).to eq original_length - 1
       expect(folder.documents).to_not include document

@@ -48,7 +48,7 @@ module Gliffy
       @is_deleted = true
 
       changed
-      notify_observers :delete, self
+      notify_observers :document_deleted, self
     end
 
     def deleted?
