@@ -36,9 +36,11 @@ Basic usage
 
     doc.xml.content
 
-### Navigating folders
+### Working with folders
 
     root = account.root
     root.folders[0].documents
     root.folders[1].name
     root.folders[1].path
+
+    folder.delete
