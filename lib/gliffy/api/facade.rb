@@ -37,6 +37,12 @@ module Gliffy
         api.web(web_root + partial_url, params)
       end
 
+      # Path  is alphanumeric  +  spaces and  '/'.   Spaces should  be
+      # escaped; slashes should NOT be escaped.
+      def escape_path(path)
+        path.gsub(' ', '+')
+      end
+
       def get_folders(account_id)
         get("/accounts/#{account_id}/folders.xml",
             :action => 'get')
@@ -62,6 +68,11 @@ module Gliffy
       def delete_document(document_id)
         post("/accounts/#{account_id}/documents/#{document_id}.xml",
              :action => "delete")
+      end
+
+      def get_documents_in_folder(path)
+        get("/accounts/#{account_id}/folders/#{escape_path path}/documents.xml",
+            :action => "get")
       end
 
       def create_document(name, type, original_id, path)

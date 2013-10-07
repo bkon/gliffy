@@ -1,6 +1,20 @@
 require 'spec_helper'
 
 shared_examples_for "an API facade" do
+  it "has folder path escame method" do
+    expect(facade).to respond_to :escape_path
+  end
+
+  describe "folder path escape method" do
+    it "escapes spaces" do
+      expect(facade.escape_path("A B")).to eq "A+B"
+    end
+
+    it "does not escape slashes" do
+      expect(facade.escape_path("A/B")).to eq "A/B"
+    end
+  end
+
   context "when sending GET request" do
     it "forwards request to the API backend with HTTP protocol" do
       api.should_receive(
@@ -118,6 +132,33 @@ shared_examples_for "an API facade" do
               hash_including(:action => "delete"))
 
       facade.delete_document(document_id)
+    end
+  end
+
+  it "allows to load documents in a folder" do
+    expect(facade).to respond_to :get_documents_in_folder
+  end
+
+  context "when loading documents in a folder" do
+    let(:folder_path) { "ROOT/test" }
+    let(:response) { double(Gliffy::API::Response) }
+
+    before :each do
+      facade.stub(:get).and_return(response)
+      facade.stub(:escape_path).and_call_original
+
+      facade.get_documents_in_folder(folder_path)
+    end
+
+    it "sends GET request" do
+      expect(facade).to have_received(:get)
+        .with("/accounts/#{account_id}/folders/ROOT/test/documents.xml",
+              hash_including(:action => "get"))
+    end
+
+    it "escapes folder path properly" do
+      expect(facade).to have_received(:escape_path)
+        .with(folder_path)
     end
   end
 

@@ -40,34 +40,30 @@ describe Gliffy::Folder do
   end
 
   describe "document list" do
-    it "is loaded from API" do
-      api.should_receive(
-        :get
-      ).and_return(
-        Gliffy::API::Response.new(fixture("documents"))
-      )
+    let(:response) { Gliffy::API::Response.new(fixture("documents")) }
 
+    before :each do
+      api.stub(:get_documents_in_folder)
+        .and_return(response)
+    end
+
+    it "is loaded from API" do
       folder.documents
+
+      expect(api).to have_received(:get_documents_in_folder)
+        .with(folder.path)
     end
 
     it "has correct length" do
-      api.stub(
-        :get
-      ).and_return(
-        Gliffy::API::Response.new(fixture("documents"))
-      )
-
       expect(folder.documents.length).to eq 3
     end
 
-    it "is empty when API returns appropriate response" do
-      api.stub(
-        :get
-      ).and_return(
-        Gliffy::API::Response.new(fixture("documents-empty"))
-      )
+    context "when API returns empty response" do
+      let(:response) { Gliffy::API::Response.new(fixture("documents-empty")) }
 
-      expect(folder.documents.length).to eq 0
+      it "is empty" do
+        expect(folder.documents.length).to eq 0
+      end
     end
   end
 
@@ -196,11 +192,8 @@ describe Gliffy::Folder do
 
   context "when receives a document delete notification" do
     before :each do
-      api.should_receive(
-        :get
-      ).and_return(
-        Gliffy::API::Response.new(fixture("documents"))
-      )
+      api.should_receive(:get_documents_in_folder)
+        .and_return(Gliffy::API::Response.new(fixture("documents")))
     end
 
     it "removes document from the document list" do

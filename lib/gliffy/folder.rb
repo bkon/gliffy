@@ -66,16 +66,8 @@ module Gliffy
       owner.id
     end
 
-    def escaped_path
-      path.gsub(' ', '+')
-    end
-
     def load_documents
-      # Path  is alphanumeric  +  spaces and  '/'.   Spaces should  be
-      # escaped; slashes should NOT be escaped.
-      url = "/accounts/#{account_id}/folders/#{escaped_path}/documents.xml"
-      response = api.get(url,
-                         :action => "get")
+      response = api.get_documents_in_folder(path)
 
       response
         .nodes('//g:document')
