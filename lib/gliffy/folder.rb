@@ -62,10 +62,6 @@ module Gliffy
       owner.api
     end
 
-    def account_id
-      owner.id
-    end
-
     def load_documents
       response = api.get_documents_in_folder(path)
 
