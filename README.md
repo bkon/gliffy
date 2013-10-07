@@ -1,6 +1,8 @@
 Gliffy API wrapper
 ==================
 
+[![Gem Version](https://badge.fury.io/rb/gliffy.png)](http://badge.fury.io/rb/gliffy)
+
 Basic usage
 -----------
 
