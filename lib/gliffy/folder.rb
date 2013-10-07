@@ -2,6 +2,8 @@ require 'uri'
 
 module Gliffy
   class Folder
+    include Observable
+
     attr_reader :name, :path
     attr_reader :owner, :parent
     attr_reader :folders
@@ -23,7 +25,10 @@ module Gliffy
       @folders = folders
       @folders.each do |f|
         f.parent = self
+        f.add_observer(self)
       end
+
+      @is_deleted = false
     end
 
     def parent=(parent)
@@ -46,14 +51,28 @@ module Gliffy
       path == "ROOT"
     end
 
+    def deleted?
+      @is_deleted
+    end
+
     # observer callback
     def update(event, target)
       case event
       when :document_deleted
         @documents = @documents.delete_if { |element| element == target }
+      when :folder_deleted
+        @folders = @folders.delete_if { |element| element == target }
       else
         raise ArgumentError.new(event)
       end
+    end
+
+    def delete
+      api.delete_folder(path)
+      @is_deleted = true
+
+      changed
+      notify_observers :folder_deleted, self
     end
 
     private

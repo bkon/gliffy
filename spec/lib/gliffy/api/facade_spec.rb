@@ -162,6 +162,32 @@ shared_examples_for "an API facade" do
     end
   end
 
+  it "allows user to delete a folder" do
+    expect(facade).to respond_to :delete_folder
+  end
+
+  context "when deleting a folder" do
+    let(:folder_path) { "ROOT/test" }
+
+    before :each do
+      facade.stub(:post)
+      facade.stub(:escape_path).and_call_original
+
+      facade.delete_folder(folder_path)
+    end
+
+    it "escapes folder path properly" do
+      expect(facade).to have_received(:escape_path)
+        .with(folder_path)
+    end
+
+    it "sends POST request" do
+      expect(facade).to have_received(:post)
+        .with("/accounts/#{account_id}/folders/#{folder_path}.xml",
+              hash_including(:action => "delete"))
+    end
+  end
+
   it "allows user to create a document" do
     expect(facade).to respond_to :create_document
   end

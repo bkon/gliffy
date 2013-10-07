@@ -75,6 +75,11 @@ module Gliffy
             :action => "get")
       end
 
+      def delete_folder(path)
+        post("/accounts/#{account_id}/folders/#{escape_path path}.xml",
+             :action => "delete")
+      end
+
       def create_document(name, type, original_id, path)
         params = {
           :action => "create",

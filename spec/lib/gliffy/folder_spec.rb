@@ -71,6 +71,16 @@ describe Gliffy::Folder do
     expect(folder).to respond_to :folders
   end
 
+  it "listens for changes in nested folders" do
+    folder.stub(:update)
+
+    folder.folders[0].changed
+    folder.folders[0].notify_observers(:event, :target)
+
+    expect(folder).to have_received(:update)
+      .with(:event, :target)
+  end
+
   describe "folder list" do
     subject(:children) { folder.folders }
 
@@ -207,11 +217,61 @@ describe Gliffy::Folder do
     end
   end
 
+  context "when received a child folder delete notification" do
+    it "removes folder from the children list" do
+      original_length = folder.folders.length
+      child = folder.folders[1]
+
+      folder.update(:folder_deleted, child)
+
+      expect(folder.folders.length).to eq original_length - 1
+      expect(folder.folders).to_not include child
+    end
+  end
+
   context "when receives an unknown event" do
     let(:document) { double(Gliffy::Document) }
 
     it "throws an exception" do
       expect { folder.update(:unknown, document) }.to raise_error ArgumentError
+    end
+  end
+
+  it "can be deleted" do
+    expect(folder).to respond_to :delete
+  end
+
+  it "knows its deleted state" do
+    expect(folder).to respond_to :deleted?
+  end
+
+  it "is not marked as deleted by default" do
+    expect(folder.deleted?).to be_false
+  end
+
+  context "when being deleted" do
+    let(:observer) { double(Object) }
+
+    before :each do
+      api.stub(:delete_folder)
+
+      observer.stub(:update)
+      folder.add_observer(observer)
+
+      folder.delete
+    end
+
+    it "calls REST API" do
+      expect(api).to have_received(:delete_folder)
+        .with(folder.path)
+    end
+
+    it "notifies observers about this" do
+      expect(observer).to have_received(:update).with(:folder_deleted, folder)
+    end
+
+    it "is marked as deleted" do
+      expect(folder.deleted?).to be_true
     end
   end
 end
