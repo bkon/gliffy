@@ -238,6 +238,14 @@ describe Gliffy::Folder do
         expect { folder.create_folder(folder_name) }.to raise_error ArgumentError
       end
     end
+
+    context "when subfolder with differently capitalized name already exists" do
+      let(:folder_name) { folder.folders[0].name.swapcase }
+
+      it "throws an exception" do
+        expect { folder.create_folder(folder_name) }.to raise_error ArgumentError
+      end
+    end
   end
 
   context "when receives a document delete notification" do

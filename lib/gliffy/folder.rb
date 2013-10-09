@@ -70,7 +70,10 @@ module Gliffy
     end
 
     def has_child?(name)
-      not folders.index { |child| child.name == name }.nil?
+      normalized_name = name.downcase
+      not folders.index do |child|
+        child.name.downcase == normalized_name
+      end.nil?
     end
 
     # observer callback
