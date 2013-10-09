@@ -99,6 +99,11 @@ module Gliffy
              params)
       end
 
+      def create_folder(path)
+        post("/accounts/#{account_id}/folders/#{path}.xml",
+             :action => "create")
+      end
+
       private
 
       def handle_error(response)

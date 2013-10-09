@@ -43,6 +43,16 @@ module Gliffy
       api.create_document(name, Gliffy::Document::TYPE_DIAGRAM, nil, path)
     end
 
+    def create_folder(name)
+      new_path = path + "/" + name
+
+      api.create_folder(new_path)
+
+      new_folder = Folder.new(owner, name, new_path, [])
+      folders.push(new_folder)
+      new_folder
+    end
+
     def documents
       @documents ||= load_documents
     end

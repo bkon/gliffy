@@ -231,6 +231,24 @@ shared_examples_for "an API facade" do
     end
   end
 
+  it "allows user to create a folder" do
+    expect(facade).to respond_to :create_folder
+  end
+
+  context "when creating a folder" do
+    let(:folder_path) { "ROOT/TEST/SUBFOLDER" }
+
+    it "sends POST request" do
+      facade.stub(:post)
+
+      facade.create_folder(folder_path)
+
+      expect(facade).to have_received(:post)
+        .with("/accounts/#{account_id}/folders/#{folder_path}.xml",
+              hash_including(:action => "create"))
+    end
+  end
+
   context "when POST request returns an error" do
     let(:response) { Gliffy::API::Response.new(fixture("error-401")) }
 

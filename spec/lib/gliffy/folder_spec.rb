@@ -200,6 +200,38 @@ describe Gliffy::Folder do
     end
   end
 
+  it "allows us to create a folder" do
+    expect(folder).to respond_to :create_folder
+  end
+
+  context "when creating a folder" do
+    let(:folder_name) { "SUBFOLDER" }
+
+    before :each do
+      api.stub(:create_folder)
+    end
+
+    it "calls REST API" do
+      folder.create_folder(folder_name)
+      expect(api).to have_received(:create_folder)
+        .with(folder.path + "/" + folder_name)
+    end
+
+    it "returns a new folder" do
+      new_folder = folder.create_folder(folder_name)
+      expect(new_folder).to be_instance_of Gliffy::Folder
+    end
+
+    it "updates subfolder list" do
+      old_length = folder.folders.length
+
+      new_folder = folder.create_folder(folder_name)
+
+      expect(folder.folders.length).to eq old_length + 1
+      expect(folder.folders).to include new_folder
+    end
+  end
+
   context "when receives a document delete notification" do
     before :each do
       api.should_receive(:get_documents_in_folder)
