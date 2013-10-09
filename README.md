@@ -2,6 +2,7 @@ Gliffy API wrapper
 ==================
 
 [![Gem Version](https://badge.fury.io/rb/gliffy.png)](http://badge.fury.io/rb/gliffy)
+[![Code Climate](https://codeclimate.com/github/bkon/gliffy.png)](https://codeclimate.com/github/bkon/gliffy)
 
 Basic usage
 -----------
