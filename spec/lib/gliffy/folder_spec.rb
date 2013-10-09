@@ -230,6 +230,14 @@ describe Gliffy::Folder do
       expect(folder.folders.length).to eq old_length + 1
       expect(folder.folders).to include new_folder
     end
+
+    context "when subfolder with the same name already exists" do
+      let(:folder_name) { folder.folders[0].name }
+
+      it "throws an exception" do
+        expect { folder.create_folder(folder_name) }.to raise_error ArgumentError
+      end
+    end
   end
 
   context "when receives a document delete notification" do

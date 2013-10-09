@@ -44,6 +44,10 @@ module Gliffy
     end
 
     def create_folder(name)
+      if has_child? name
+        raise ArgumentError.new(name)
+      end
+
       new_path = path + "/" + name
 
       api.create_folder(new_path)
@@ -63,6 +67,10 @@ module Gliffy
 
     def deleted?
       @is_deleted
+    end
+
+    def has_child?(name)
+      not folders.index { |child| child.name == name }.nil?
     end
 
     # observer callback
