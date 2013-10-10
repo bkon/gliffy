@@ -79,8 +79,12 @@ module Gliffy
     # observer callback
     def update(event, target)
       case event
-      when :document_deleted
+      when :document_removed, :document_deleted
         @documents = @documents.delete_if { |element| element == target }
+        target.delete_observer(self)
+      when :document_added
+        @documents.push target
+        target.add_observer(self)
       when :folder_deleted
         @folders = @folders.delete_if { |element| element == target }
       else

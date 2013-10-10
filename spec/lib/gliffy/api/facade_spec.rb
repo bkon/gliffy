@@ -135,6 +135,27 @@ shared_examples_for "an API facade" do
     end
   end
 
+  it "allows user to move document to a different folder" do
+    expect(facade).to respond_to :move_document
+  end
+
+  context "when moving a document" do
+    let(:document_id) { 144 }
+    let(:folder_path) { "ROOT/FOLDER/SUBFOLDER" }
+
+    before :each do
+      facade.stub(:post)
+    end
+
+    it "sends POST request" do
+      facade.move_document(document_id, folder_path)
+
+      expect(facade).to have_received(:post)
+        .with("/accounts/#{account_id}/folders/#{folder_path}/documents/#{document_id}.xml",
+              hash_including(:action => "move"))
+    end
+  end
+
   it "allows to load documents in a folder" do
     expect(facade).to respond_to :get_documents_in_folder
   end

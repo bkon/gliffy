@@ -43,6 +43,14 @@ module Gliffy
       api.update_document_metadata(id, new_name, nil)
     end
 
+    def move(folder)
+      api.move_document(id, folder.path)
+
+      changed
+      notify_observers :document_removed, self
+      folder.update :document_added, self
+    end
+
     def delete
       api.delete_document(id)
       @is_deleted = true

@@ -137,6 +137,41 @@ describe Gliffy::Document do
     end
   end
 
+  it "can be moved" do
+    expect(document).to respond_to :move
+  end
+
+  context "when moved" do
+    let(:observer) { double(Object, :update => nil) }
+    let(:folder) do
+      double(Gliffy::Folder,
+             :path => "ROOT/FOLDER/SUBFOLDER",
+             :update => nil)
+    end
+
+    before :each do
+      api.stub(:move_document)
+
+      document.add_observer(observer)
+      document.move(folder)
+    end
+
+    it "calls REST API" do
+      expect(api).to have_received(:move_document)
+        .with(document.id, folder.path)
+    end
+
+    it "notifies observers" do
+      expect(observer).to have_received(:update)
+        .with(:document_removed, document)
+    end
+
+    it "notifies new parent" do
+      expect(folder).to have_received(:update)
+        .with(:document_added, document)
+    end
+  end
+
   it "can be deleted" do
     expect(document).to respond_to :delete
   end

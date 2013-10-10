@@ -248,20 +248,90 @@ describe Gliffy::Folder do
     end
   end
 
-  context "when receives a document delete notification" do
-    before :each do
-      api.should_receive(:get_documents_in_folder)
+  context "when notified that a document has been removed" do
+    let(:document) do
+      api.stub(:get_documents_in_folder)
         .and_return(Gliffy::API::Response.new(fixture("documents")))
+
+      folder.documents[1]
+    end
+
+    before :each do
+      document.stub(:delete_observer).and_call_original
     end
 
     it "removes document from the document list" do
       original_length = folder.documents.length
-      document = folder.documents[1]
+
+      folder.update(:document_removed, document)
+
+      expect(folder.documents.length).to eq original_length - 1
+      expect(folder.documents).to_not include document
+    end
+
+    it "stops listening to this document's events" do
+      folder.update(:document_removed, document)
+
+      expect(document).to have_received(:delete_observer)
+        .with(folder)
+    end
+  end
+
+  context "when notified that a document has been added" do
+    let(:document) do
+      api.stub(:get_documents_in_folder)
+        .and_return(Gliffy::API::Response.new(fixture("documents")))
+
+      folder.documents[1]
+    end
+
+    before :each do
+      document.stub(:add_observer).and_call_original
+    end
+
+    it "adds document to the document list" do
+      original_length = folder.documents.length
+
+      folder.update(:document_added, document)
+
+      expect(folder.documents.length).to eq original_length + 1
+      expect(folder.documents).to include document
+    end
+
+    it "starts listening to this document's events" do
+      folder.update(:document_added, document)
+
+      expect(document).to have_received(:add_observer)
+        .with(folder)
+    end
+  end
+
+  context "when receives a document delete notification" do
+    let(:document) do
+      api.stub(:get_documents_in_folder)
+        .and_return(Gliffy::API::Response.new(fixture("documents")))
+
+      folder.documents[1]
+    end
+
+    before :each do
+      document.stub(:delete_observer).and_call_original
+    end
+
+    it "removes document from the document list" do
+      original_length = folder.documents.length
 
       folder.update(:document_deleted, document)
 
       expect(folder.documents.length).to eq original_length - 1
       expect(folder.documents).to_not include document
+    end
+
+    it "stops listening to this document's events" do
+      folder.update(:document_deleted, document)
+
+      expect(document).to have_received(:delete_observer)
+        .with(folder)
     end
   end
 

@@ -70,6 +70,11 @@ module Gliffy
              :action => "delete")
       end
 
+      def move_document(document_id, folder_path)
+        post("/accounts/#{account_id}/folders/#{escape_path folder_path}/documents/#{document_id}.xml",
+             :action => "move")
+      end
+
       def get_documents_in_folder(path)
         get("/accounts/#{account_id}/folders/#{escape_path path}/documents.xml",
             :action => "get")
