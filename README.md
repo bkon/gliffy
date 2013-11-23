@@ -63,3 +63,5 @@ Basic usage
     user.email = "new-email@test.com"
     user.password = "new-password"
     user.admin = true
+
+    user.accessible_folders

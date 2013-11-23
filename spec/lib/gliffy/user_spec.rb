@@ -25,6 +25,35 @@ describe Gliffy::User do
     expect(user.email).to eq "barney@BurnsODyne.apiuser.gliffy.com"
   end
 
+  it "has a list of folders accessible to it" do
+    expect(user).to respond_to :accessible_folders
+  end
+
+  describe "list of accessible folders" do
+    before :each do
+      api.stub(:folders_accessible_to_user)
+        .and_return(Gliffy::API::Response.new(fixture("user-folders")))
+    end
+
+    it "is a list of folder objects" do
+      expect(user.accessible_folders).to be_instance_of Array
+      expect(user.accessible_folders.length).to eq 1
+      expect(user.accessible_folders[0].name).to eq "ROOT"
+      expect(user.accessible_folders[0].folders.length).to eq 2
+    end
+
+    context "when list of accessible is loaded" do
+      before :each do
+        user.accessible_folders
+      end
+
+      it "is fetched from API" do
+        expect(api).to have_received(:folders_accessible_to_user)
+          .with(user.username)
+      end
+    end
+  end
+
   it "can be deleted" do
     expect(user).to respond_to :delete
   end

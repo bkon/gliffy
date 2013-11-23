@@ -67,6 +67,25 @@ shared_examples_for "an API facade" do
     end
   end
 
+  it "allows to load a list of folders accessible to an user" do
+    expect(facade).to respond_to :folders_accessible_to_user
+  end
+
+  context "when loading list of folders accessible to an user" do
+    let(:username) { "USERNAME" }
+
+    before :each do
+      facade.stub(:get)
+      facade.folders_accessible_to_user username
+    end
+
+    it "sends GET request" do
+      expect(facade).to have_received(:get)
+        .with("/accounts/#{account_id}/users/#{username}/folders.xml",
+              hash_including(:action => "get"))
+    end
+  end
+
   context "when loading a list of folders" do
     it "wraps own 'get' method" do
       account_id = 99

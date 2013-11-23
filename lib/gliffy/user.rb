@@ -18,6 +18,12 @@ module Gliffy
       @email = email
     end
 
+    def accessible_folders
+      api.folders_accessible_to_user(username)
+        .nodes("//g:folders/g:folder")
+        .map { |n| Gliffy::Folder.load(owner, n) }
+    end
+
     def delete
       api.delete_user(username)
 

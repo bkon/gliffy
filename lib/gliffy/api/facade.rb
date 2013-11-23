@@ -48,6 +48,11 @@ module Gliffy
             :action => "get")
       end
 
+      def folders_accessible_to_user(username)
+        get("/accounts/#{account_id}/users/#{username}/folders.xml",
+            :action => "get")
+      end
+
       def get_users(account_id)
         get("/accounts/#{account_id}/users.xml",
             :action => "get")

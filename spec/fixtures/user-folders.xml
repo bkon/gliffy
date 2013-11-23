@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response xmlns="http://www.gliffy.com" success="true">
+    <folders>
+        <folder is-default="true">
+            <name>ROOT</name>
+            <path>ROOT</path>
+            <folder is-default="false">
+                <name>Tulacca Camp</name>
+                <path>ROOT/Tulacca Camp</path>
+            </folder>
+            <folder is-default="false">
+                <name>Simpsons Family</name>
+                <path>ROOT/Simpsons Family</path>
+                <folder is-default="false">
+                    <name>Homer's Secrets</name>
+                    <path>ROOT/Simpsons Family/Homer's Secrets</path>
+                </folder>
+            </folder>
+        </folder>
+    </folders>
+</response>
