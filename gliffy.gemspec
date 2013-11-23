@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('simplecov')
   s.add_development_dependency('http_logger')
   s.add_development_dependency('guard')
+  s.add_development_dependency('rb-readline')
   s.add_development_dependency('guard-rspec')
   s.add_development_dependency('ci_reporter')
 end
