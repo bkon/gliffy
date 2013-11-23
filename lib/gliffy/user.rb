@@ -25,6 +25,19 @@ module Gliffy
       notify_observers :user_deleted, self
     end
 
+    def email=(email)
+      api.update_user(username, email, nil, nil)
+      @email = email
+    end
+
+    def password=(value)
+      api.update_user(username, nil, value, nil)
+    end
+
+    def admin=(value)
+      api.update_user(username, nil, nil, value)
+    end
+
     private
 
     def api

@@ -51,4 +51,65 @@ describe Gliffy::User do
         .with(:user_deleted, user)
     end
   end
+
+  it "allows to update email" do
+    expect(user).to respond_to :email=
+  end
+
+  context "when email is updated" do
+    let(:new_email) { "new-email@test.com" }
+
+    before :each do
+      api.stub(:update_user)
+
+      user.email = new_email
+    end
+
+    it "sends a request to API" do
+      expect(api).to have_received(:update_user)
+        .with(user.username, new_email, nil, nil)
+    end
+
+    it "updates local email value" do
+      expect(user.email).to eq new_email
+    end
+  end
+
+  it "allows to update password" do
+    expect(user).to respond_to :password=
+  end
+
+  context "when password is updated" do
+    let(:new_password) { "new-password" }
+
+    before :each do
+      api.stub(:update_user)
+
+      user.password = new_password
+    end
+
+    it "sends a request to API" do
+      expect(api).to have_received(:update_user)
+        .with(user.username, nil, new_password, nil)
+    end
+  end
+
+  it "allows to grant or revoke admin priviletes" do
+    expect(user).to respond_to :admin=
+  end
+
+  context "when admin flag is updated" do
+    let(:new_admin) { true }
+
+    before :each do
+      api.stub(:update_user)
+
+      user.admin = new_admin
+    end
+
+    it "sends a request to API" do
+      expect(api).to have_received(:update_user)
+        .with(user.username, nil, nil, new_admin)
+    end
+  end
 end

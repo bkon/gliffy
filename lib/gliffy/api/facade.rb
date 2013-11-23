@@ -120,6 +120,27 @@ module Gliffy
              :userName => username)
       end
 
+      def update_user(username, email, password, is_admin)
+        params = {
+          :action => "update"
+        }
+
+        if not email.nil?
+          params[:email] = email
+        end
+
+        if not password.nil?
+          params[:password] = password
+        end
+
+        if not is_admin.nil?
+          params[:admin] = is_admin ? "true" : "false"
+        end
+
+        post("/accounts/#{account_id}/users/#{username}.xml",
+             params)
+      end
+
       def delete_user(username)
         post("/accounts/#{account_id}/users/#{username}.xml",
              :action => "delete")

@@ -329,6 +329,69 @@ shared_examples_for "an API facade" do
     end
   end
 
+  it "allows to update existing user" do
+    expect(facade).to respond_to :update_user
+  end
+
+  context "when updating user" do
+    let(:username) { "testuser" }
+    let(:new_email) { "new-email@test.com" }
+    let(:new_password) { "password" }
+    let(:new_admin) { true }
+
+    before :each do
+      facade.stub(:post)
+
+      facade.update_user(username, new_email, new_password, new_admin)
+    end
+
+    it "sends POST request to API" do
+      expect(facade).to have_received(:post)
+        .with("/accounts/#{account_id}/users/#{username}.xml",
+              hash_including(:action => "update"))
+    end
+
+    context "when all data is given" do
+      it "updates all fields" do
+        expect(facade).to have_received(:post)
+          .with(anything(),
+                hash_including(:email => new_email,
+                               :password => new_password,
+                               :admin => new_admin ? "true" : "false"))
+      end
+    end
+
+    context "when no email is given" do
+      let(:new_email) { nil }
+
+      it "doesnt try to update email" do
+        expect(facade).to have_received(:post)
+          .with(anything(),
+                hash_not_including(:email))
+      end
+    end
+
+    context "when no password is given" do
+      let(:new_password) { nil }
+
+      it "doesnt try to update password" do
+        expect(facade).to have_received(:post)
+          .with(anything(),
+                hash_not_including(:password))
+      end
+    end
+
+    context "when no admin flag is given" do
+      let(:new_admin) { nil }
+
+      it "doesnt try to update admin flag" do
+        expect(facade).to have_received(:post)
+          .with(anything(),
+                hash_not_including(:admin))
+      end
+    end
+  end
+
   context "when POST request returns an error" do
     let(:response) { Gliffy::API::Response.new(fixture("error-401")) }
 
