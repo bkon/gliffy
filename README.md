@@ -54,3 +54,5 @@ Basic usage
 
     account.users[0].username
     account.users[1].email
+
+    account.create_user("john-smith")

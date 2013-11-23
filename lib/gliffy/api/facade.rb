@@ -114,6 +114,12 @@ module Gliffy
              :action => "create")
       end
 
+      def create_user(username)
+        post("/accounts/#{account_id}/users.xml",
+             :action => "create",
+             :userName => username)
+      end
+
       private
 
       def handle_error(response)

@@ -86,7 +86,7 @@ describe Gliffy::Folder do
 
     it { should respond_to :length }
     it { should respond_to :[] }
-    it "has corrent length" do 
+    it "has corrent length" do
       expect(children.length).to eq 4
     end
   end
@@ -217,7 +217,7 @@ describe Gliffy::Folder do
         .with(folder.path + "/" + folder_name)
     end
 
-    it "returns a new folder" do
+    it "returns new folder" do
       new_folder = folder.create_folder(folder_name)
       expect(new_folder).to be_instance_of Gliffy::Folder
     end

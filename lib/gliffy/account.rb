@@ -40,6 +40,19 @@ module Gliffy
       )
     end
 
+    def create_user(username)
+      if username =~ /\s/ then
+        raise ArgumentError.new(username)
+      end
+
+      if users.select { |u| u.username == username }.length > 0 then
+        raise ArgumentError.new(username)
+      end
+
+      api.create_user(username)
+      users.select { |u| u.username == username }.first
+    end
+
     private
 
     def initialize(api, params)

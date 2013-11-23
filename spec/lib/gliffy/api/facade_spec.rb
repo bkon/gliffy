@@ -288,6 +288,26 @@ shared_examples_for "an API facade" do
     end
   end
 
+  it "allows to create a new user" do
+    expect(facade).to respond_to :create_user
+  end
+
+  context "when creating user" do
+    let(:username) { "USER" }
+    let(:email) { "test@test.com" }
+
+    before :each do
+      facade.stub(:post)
+    end
+
+    it "sends POST request to API" do
+      facade.create_user username
+
+      expect(facade).to have_received(:post)
+        .with("/accounts/#{account_id}/users.xml",
+              hash_including(:action => "create" ))
+    end
+  end
   context "when POST request returns an error" do
     let(:response) { Gliffy::API::Response.new(fixture("error-401")) }
 

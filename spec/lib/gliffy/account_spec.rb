@@ -129,4 +129,57 @@ describe Gliffy::Account do
     expect(api).to have_received(:get_users)
       .with(account_id)
   end
+
+  it "allows to create a new user" do
+    expect(account).to respond_to :create_user
+  end
+
+  context "when creating new user" do
+    let(:username) { "USER" }
+    let(:user1) { double(Gliffy::User, :username => "A") }
+    let(:user2) { double(Gliffy::User, :username => "B") }
+    let(:user) { double(Gliffy::User, :username => username) }
+
+    before :each do
+      api.stub(:create_user)
+
+      account.stub(:users)
+        .and_return([user1, user2],
+                    [user1, user, user2])
+    end
+
+    it "calls REST API" do
+      account.create_user username
+
+      expect(api).to have_received(:create_user)
+        .with(username)
+    end
+
+    it "returns this user" do
+      new_user = account.create_user username
+      expect(new_user).to be user
+    end
+
+    context "when username contains a space" do
+      let(:username) { "US ER" }
+
+      it "throws an exception" do
+        expect { account.create_user username }.to raise_error
+      end
+    end
+
+    context "when username is already taken" do
+      let(:username) { "USER" }
+      let(:user) { double(Gliffy::User, { :username => username }) }
+
+      before :each do
+        account.stub(:users).and_return([user])
+      end
+
+      it "throws an exception" do
+        expect { account.create_user username }.to raise_error
+      end
+    end
+  end
+
 end
