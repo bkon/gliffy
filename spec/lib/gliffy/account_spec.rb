@@ -210,4 +210,10 @@ describe Gliffy::Account do
         .with(account)
     end
   end
+
+  context "when receives an unknown event" do
+    it "throws an exception" do
+      expect { account.update(:unknown, double(Object)) }.to raise_error ArgumentError
+    end
+  end
 end
