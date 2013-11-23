@@ -24,6 +24,9 @@ Basic usage
 
     doc.delete
 
+    doc.public?
+    doc.public = false
+
 #### Download document as PNG
 
     doc.png.full

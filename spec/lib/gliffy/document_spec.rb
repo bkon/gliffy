@@ -121,7 +121,7 @@ describe Gliffy::Document do
   end
 
   context "when renamed" do
-    let (:new_name) { "NEW DOCUMENT NAME" }
+    let(:new_name) { "NEW DOCUMENT NAME" }
     before :each do
       api.stub(:update_document_metadata)
       document.rename new_name
@@ -134,6 +134,29 @@ describe Gliffy::Document do
     it "calls rename method of the REST API" do
       expect(api).to have_received(:update_document_metadata)
         .with(document_id, new_name, nil)
+    end
+  end
+
+  it "can be made public or private" do
+    expect(document).to respond_to :public=
+  end
+
+  context "when public state changes" do
+    let(:new_shared) { false }
+
+    before :each do
+      api.stub(:update_document_metadata)
+
+      document.public = new_shared
+    end
+
+    it "calls REST API" do
+      expect(api).to have_received(:update_document_metadata)
+        .with(document_id, nil, new_shared)
+    end
+
+    it "updates local object" do
+      expect(document.public?).to eq new_shared
     end
   end
 

@@ -88,6 +88,11 @@ module Gliffy
       is_public
     end
 
+    def public=(value)
+      api.update_document_metadata(id, nil, value)
+      @is_public = value
+    end
+
     def api
       owner.api
     end
