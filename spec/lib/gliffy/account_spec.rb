@@ -182,4 +182,32 @@ describe Gliffy::Account do
     end
   end
 
+  context "when notified that user has been deleted" do
+    let(:user) do
+      api.stub(:get_users)
+        .and_return(Gliffy::API::Response.new(fixture("user-list")))
+
+      account.users[1]
+    end
+
+    before :each do
+      user.stub(:delete_observer).and_call_original
+    end
+
+    it "updates user list" do
+      original_length = account.users.length
+
+      account.update(:user_deleted, user)
+
+      expect(account.users.length).to eq original_length - 1
+      expect(account.users).to_not include user
+    end
+
+    it "stops listening to this user's' events" do
+      account.update(:user_deleted, user)
+
+      expect(user).to have_received(:delete_observer)
+        .with(account)
+    end
+  end
 end

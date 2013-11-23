@@ -25,9 +25,7 @@ module Gliffy
     end
 
     def users
-      api.get_users(id)
-        .nodes('//g:user')
-        .map { |n| load_user n }
+      @users ||= load_users
     end
 
     def document(document_id)
@@ -53,6 +51,17 @@ module Gliffy
       users.select { |u| u.username == username }.first
     end
 
+    # observer callback
+    def update(event, target)
+      case event
+      when :user_deleted
+        @users = @users.delete_if { |element| element == target }
+        target.delete_observer(self)
+      else
+        raise ArgumentError.new(event)
+      end
+    end
+
     private
 
     def initialize(api, params)
@@ -73,6 +82,12 @@ module Gliffy
         self,
         response.node("/g:response/g:folders/g:folder")
       )
+    end
+
+    def load_users
+      api.get_users(id)
+        .nodes('//g:user')
+        .map { |n| load_user n }
     end
 
     def load_user(node)

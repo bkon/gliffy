@@ -120,6 +120,11 @@ module Gliffy
              :userName => username)
       end
 
+      def delete_user(username)
+        post("/accounts/#{account_id}/users/#{username}.xml",
+             :action => "delete")
+      end
+
       private
 
       def handle_error(response)

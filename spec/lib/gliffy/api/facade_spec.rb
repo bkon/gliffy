@@ -308,6 +308,27 @@ shared_examples_for "an API facade" do
               hash_including(:action => "create" ))
     end
   end
+
+  it "allows to delete existing user" do
+    expect(facade).to respond_to :delete_user
+  end
+
+  context "when deleting user" do
+    let(:username) { "USER" }
+
+    before :each do
+      facade.stub(:post)
+    end
+
+    it "sends POST request to API" do
+      facade.delete_user username
+
+      expect(facade).to have_received(:post)
+        .with("/accounts/#{account_id}/users/#{username}.xml",
+              hash_including(:action => "delete"))
+    end
+  end
+
   context "when POST request returns an error" do
     let(:response) { Gliffy::API::Response.new(fixture("error-401")) }
 

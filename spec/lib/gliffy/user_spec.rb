@@ -24,4 +24,31 @@ describe Gliffy::User do
     expect(user).to respond_to :email
     expect(user.email).to eq "barney@BurnsODyne.apiuser.gliffy.com"
   end
+
+  it "can be deleted" do
+    expect(user).to respond_to :delete
+  end
+
+  context "when being deleted" do
+    let(:observer) { double(Object) }
+
+    before :each do
+      api.stub(:delete_user)
+
+      observer.stub(:update)
+      user.add_observer(observer)
+
+      user.delete
+    end
+
+    it "calls API" do
+      expect(api).to have_received(:delete_user)
+        .with(user.username)
+    end
+
+    it "notifies observers" do
+      expect(observer).to have_received(:update)
+        .with(:user_deleted, user)
+    end
+  end
 end
