@@ -51,3 +51,6 @@ Basic usage
 ### Users
 
     account.users
+
+    account.users[0].username
+    account.users[1].email
