@@ -56,3 +56,7 @@ Basic usage
     account.users[1].email
 
     account.create_user("john-smith")
+
+    user.email = "new-email@test.com"
+    user.password = "new-password"
+    user.admin = true
