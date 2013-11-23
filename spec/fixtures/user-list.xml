@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response xmlns="http://www.gliffy.com" success="true">
+    <users>
+        <user id="209">
+            <username>barney</username>
+            <email>barney@BurnsODyne.apiuser.gliffy.com</email>
+        </user>
+        <user id="205">
+            <username>bart</username>
+            <email>bart@BurnsODyne.apiuser.gliffy.com</email>
+        </user>
+        <user id="210">
+            <username>discostu</username>
+            <email>discostu@BurnsODyne.apiuser.gliffy.com</email>
+        </user>
+        <user id="204">
+            <username>homer</username>
+            <email>homer@BurnsODyne.apiuser.gliffy.com</email>
+        </user>
+    </users>
+</response>

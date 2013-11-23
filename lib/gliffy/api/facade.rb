@@ -45,7 +45,12 @@ module Gliffy
 
       def get_folders(account_id)
         get("/accounts/#{account_id}/folders.xml",
-            :action => 'get')
+            :action => "get")
+      end
+
+      def get_users(account_id)
+        get("/accounts/#{account_id}/users.xml",
+            :action => "get")
       end
 
       def update_document_metadata(document_id, name, shared)

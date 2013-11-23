@@ -270,6 +270,24 @@ shared_examples_for "an API facade" do
     end
   end
 
+  it "has provides access to folder list" do
+    expect(facade).to respond_to :get_users
+  end
+
+  context "when loading user list" do
+    let(:response) { double(Gliffy::API::Response) }
+
+    it "sends GET request and returns its result" do
+      facade.stub(:get).and_return(response)
+
+      expect(facade.get_users(account_id)).to be response
+
+      expect(facade).to have_received(:get)
+        .with("/accounts/#{account_id}/users.xml",
+              hash_including(:action => "get"))
+    end
+  end
+
   context "when POST request returns an error" do
     let(:response) { Gliffy::API::Response.new(fixture("error-401")) }
 

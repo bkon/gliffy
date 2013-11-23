@@ -24,6 +24,12 @@ module Gliffy
       @root ||= load_root
     end
 
+    def users
+      api.get_users(id)
+        .nodes('//g:user')
+        .map { |n| load_user n }
+    end
+
     def document(document_id)
       response = api.get("/accounts/#{id}/documents/#{document_id}/meta-data.xml",
                          :action => 'get')
@@ -54,6 +60,10 @@ module Gliffy
         self,
         response.node("/g:response/g:folders/g:folder")
       )
+    end
+
+    def load_user(node)
+      Gliffy::User.load(self, node)
     end
   end
 end

@@ -93,7 +93,7 @@ describe Gliffy::Account do
     subject(:root_folder) { account.root }
 
     it "is named ROOT" do
-      expect(root_folder.name).to eq "ROOT" 
+      expect(root_folder.name).to eq "ROOT"
     end
 
     it "has ROOT path" do
@@ -103,5 +103,30 @@ describe Gliffy::Account do
     it "refers to the original account as owner" do
       expect(root_folder.owner).to be account
     end
+  end
+
+  it "has a list of users" do
+    api
+      .stub(:get_users)
+      .and_return(Gliffy::API::Response.new(fixture("user-list")))
+
+    expect(account).to respond_to :users
+    expect(account.users).to be_instance_of Array
+    expect(account.users.length).to eq 4
+
+    account.users.each do |u|
+      expect(u).to be_instance_of Gliffy::User
+    end
+  end
+
+  it "delegates the task of fetching user list to API" do
+    api
+      .stub(:get_users)
+      .and_return(Gliffy::API::Response.new(fixture("user-list")))
+
+    account.users
+
+    expect(api).to have_received(:get_users)
+      .with(account_id)
   end
 end

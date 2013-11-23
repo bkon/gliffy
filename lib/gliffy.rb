@@ -11,6 +11,7 @@ require 'gliffy/document/presentation/png'
 require 'gliffy/document/presentation/svg'
 require 'gliffy/document/presentation/xml'
 require 'gliffy/folder'
+require 'gliffy/user'
 
 require 'gliffy/oauth/helper'
 
