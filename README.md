@@ -47,3 +47,7 @@ Basic usage
     root.folders[1].path
 
     folder.delete
+
+### Users
+
+    account.users
