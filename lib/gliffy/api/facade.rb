@@ -58,6 +58,20 @@ module Gliffy
             :action => "get")
       end
 
+      def grant_access_to_folder(username, path)
+        post("/accounts/#{account_id}/folders/#{escape_path path}/users/#{username}.xml",
+             :action => "update",
+             :read => "true",
+             :write => "true")
+      end
+
+      def revoke_access_to_folder(username, path)
+        post("/accounts/#{account_id}/folders/#{escape_path path}/users/#{username}.xml",
+             :action => "update",
+             :read => "false",
+             :write => "false")
+      end
+
       def get_users(account_id)
         get("/accounts/#{account_id}/users.xml",
             :action => "get")

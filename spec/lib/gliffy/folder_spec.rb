@@ -418,4 +418,41 @@ describe Gliffy::Folder do
       expect(folder.deleted?).to be_true
     end
   end
+
+  describe "access rights" do
+    let(:username) { "USERNAME" }
+    let(:user) { double(Gliffy::User, :username => username ) }
+
+    it "can be granted" do
+      expect(folder).to respond_to :grant_access
+    end
+
+    context "when granting" do
+      before :each do
+        api.stub(:grant_access_to_folder)
+        folder.grant_access(user)
+      end
+
+      it "calls API" do
+        expect(api).to have_received(:grant_access_to_folder)
+          .with(username, folder.path)
+      end
+    end
+
+    it "can be revoked" do
+      expect(folder).to respond_to :revoke_access
+    end
+
+    context "when revoking" do
+      before :each do
+        api.stub(:revoke_access_to_folder)
+        folder.revoke_access(user)
+      end
+
+      it "calls API" do
+        expect(api).to have_received(:revoke_access_to_folder)
+          .with(username, folder.path)
+      end
+    end
+  end
 end

@@ -52,6 +52,8 @@ Basic usage
     folder.delete
 
     folder.users
+    folder.grant_access(user)
+    folder.revoke_access(user)
 
 ### Users
 

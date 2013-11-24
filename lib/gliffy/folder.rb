@@ -37,6 +37,14 @@ module Gliffy
         .map { |n| Gliffy::User.load(owner, n) }
     end
 
+    def grant_access(user)
+      api.grant_access_to_folder(user.username, path)
+    end
+
+    def revoke_access(user)
+      api.revoke_access_to_folder(user.username, path)
+    end
+
     def parent=(parent)
       if path != parent.path + "/" + name then
         raise "Invalid parent"

@@ -461,6 +461,50 @@ shared_examples_for "an API facade" do
       expect { facade.get("/random_url", {}) }.to raise_error(Gliffy::API::Error)
     end
   end
+
+  it "allows to grant user access to folder" do
+    expect(facade).to respond_to :grant_access_to_folder
+  end
+
+  context "when user access is granted" do
+    let(:username) { "USERNAME" }
+    let(:path) { "ROOT/FOLDER/SUB" }
+
+    before :each do
+      facade.stub(:post)
+      facade.grant_access_to_folder(username, path)
+    end
+
+    it "sends POST request" do
+      expect(facade).to have_received(:post)
+        .with("/accounts/#{account_id}/folders/#{path}/users/#{username}.xml",
+              hash_including(:action => "update",
+                             :read => "true",
+                             :write => "true"))
+    end
+  end
+
+  it "allows to revoke user access to folder" do
+    expect(facade).to respond_to :revoke_access_to_folder
+  end
+
+  context "when user access is revoked" do
+    let(:username) { "USERNAME" }
+    let(:path) { "ROOT/FOLDER/SUB" }
+
+    before :each do
+      facade.stub(:post)
+      facade.revoke_access_to_folder(username, path)
+    end
+
+    it "sends POST request" do
+      expect(facade).to have_received(:post)
+        .with("/accounts/#{account_id}/folders/#{path}/users/#{username}.xml",
+              hash_including(:action => "update",
+                             :read => "false",
+                             :write => "false"))
+    end
+  end
 end
 
 describe Gliffy::API::Facade do
