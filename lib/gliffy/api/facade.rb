@@ -53,6 +53,11 @@ module Gliffy
             :action => "get")
       end
 
+      def users_with_access_to_folder(path)
+        get("/accounts/#{account_id}/folders/#{escape_path path}/users.xml",
+            :action => "get")
+      end
+
       def get_users(account_id)
         get("/accounts/#{account_id}/users.xml",
             :action => "get")

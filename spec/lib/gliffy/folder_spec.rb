@@ -29,6 +29,32 @@ describe Gliffy::Folder do
     expect(folder).to respond_to :documents
   end
 
+  it "has a list of users with access to this folder" do
+    expect(folder).to respond_to :users
+  end
+
+  describe "user list" do
+    before :each do
+      api.stub(:users_with_access_to_folder)
+        .and_return(Gliffy::API::Response.new(fixture("folder-users")))
+    end
+
+    subject(:users) { folder.users }
+
+    it "is an array" do
+      expect(users).to be_instance_of Array
+    end
+
+    it "has correct length" do
+      expect(users.length).to eq 4
+    end
+
+    it "contains correct user objects" do
+      expect(users[0].username).to eq "barney"
+      expect(users[3].username).to eq "homer"
+    end
+  end
+
   describe "root folder" do
     it "knows it is root" do
       expect(folder.root?).to be_true

@@ -51,6 +51,8 @@ Basic usage
 
     folder.delete
 
+    folder.users
+
 ### Users
 
     account.users

@@ -31,6 +31,12 @@ module Gliffy
       @is_deleted = false
     end
 
+    def users
+      api.users_with_access_to_folder(path)
+        .nodes("//g:user")
+        .map { |n| Gliffy::User.load(owner, n) }
+    end
+
     def parent=(parent)
       if path != parent.path + "/" + name then
         raise "Invalid parent"
