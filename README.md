@@ -69,3 +69,7 @@ Basic usage
     user.admin = true
 
     user.accessible_folders
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bkon/gliffy/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
