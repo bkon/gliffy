@@ -3,6 +3,7 @@ Gliffy API wrapper
 
 [![Gem Version](https://badge.fury.io/rb/gliffy.png)](http://badge.fury.io/rb/gliffy)
 [![Code Climate](https://codeclimate.com/github/bkon/gliffy.png)](https://codeclimate.com/github/bkon/gliffy)
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bkon/gliffy/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 Basic usage
 -----------
@@ -69,7 +70,3 @@ Basic usage
     user.admin = true
 
     user.accessible_folders
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bkon/gliffy/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
