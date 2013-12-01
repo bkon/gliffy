@@ -39,8 +39,8 @@ module Gliffy
 
     def web(url, params)
       consumer.create_signed_request(
-        :get, 
-        url + '?' + query(params), 
+        :get,
+        url + '?' + query(params),
         token
       ).path
     end
@@ -58,7 +58,7 @@ module Gliffy
         :action => 'create',
         :description => application_name
       )
-      
+
       token.token = response.string('//g:oauth-token')
       token.secret = response.string('//g:oauth-token-secret')
     end
