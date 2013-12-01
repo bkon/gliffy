@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = 'gliffy'
-  s.version = '0.0.9'
-  s.date = '2013-11-24'
+  s.version = '0.0.10'
+  s.date = '2013-12-01'
   s.summary = 'Gliffy API client'
   s.description = 'A simple Gliffy REST API wrapper.'
   s.license = 'MIT'
@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
     "README*",
     "LICENSE*"
   ]
+  s.executables = ["gliffy-cli"]
   s.homepage = "https://github.com/bkon/gliffy"
 
   s.add_dependency('oauth')
