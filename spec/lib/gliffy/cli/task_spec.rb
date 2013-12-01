@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'yaml'
 
 describe Gliffy::CLI::Task do
   let(:account) do
