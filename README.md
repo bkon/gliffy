@@ -70,3 +70,65 @@ Basic usage
     user.admin = true
 
     user.accessible_folders
+
+Command-line client
+-------------------
+
+### Authenticating yourself to gliffy API
+
+CLI client looks for credentials in `~/.gliffy-cli` file by default. It is
+a YAML file with a following simple structure:
+
+    gliffy:
+      account: <YOUR ACCOUNT ID>
+      oauth:
+        consumer_key: <YOUR OAUTH CONSUMER KEY>
+        consumer_secret: <YOUR OAUTH CONSUMER SECRET>
+
+An alternative ways to specify API credentials are:
+* use `--credentials` flag
+```
+gliffy-cli --credentials <PATH TO CREDENTIALS FILE> ...
+```
+* use `--account-id`, `--consumer-key` and `--consumer-secret` flags
+```
+gliffy-cli --account-id <ID> --consumer-key <KEY> --consumer-secret <SECRET> ...
+```
+
+The next step is to impersonate an user:
+
+```
+gliffy-cli ... --user <USERNAME> ...
+```
+
+Keep in mind that new users are provisioned automatically, so if
+`<USERNAME>` does not exists, it will be created for you by Gliffy.
+
+### List of available commands:
+
+* `user add <USERNAME>`
+* `user delete <USERNAME>`
+* `user list`
+* `user update email <USERNAME>`
+* `user update password <USERNAME>`
+* `user admin grant <USERNAME>`
+* `user admin revoke <USERNAME>`
+* `document add`
+* `document content <ID>.<FORMAT>`
+* `document name <ID>.<FORMAT>`
+* `document delete <ID>`
+* `document rename <ID> <NAME>`
+* `document access public <ID>`
+* `document access private <ID>`
+* `folder documents <PATH>`
+* `folder folders <PATH>`
+* `folder users <PATH>`
+* `folder access grant <PATH> <USERNAME>`
+* `folder access revoke <PATH> <USERNAME>`
+* `folder document create <PATH> <DOCUMENT>`
+* `folder create <PATH>`
+* `folder delete <PATH>`
+
+### Misc functionality
+
+* `--log-http` enables HTTP requests and response logging to STDERR

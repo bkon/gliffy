@@ -1,0 +1,50 @@
+#!ruby
+
+require 'gliffy'
+require 'gliffy/cli'
+require 'gli'
+require 'yaml'
+require 'http_logger'
+require 'logger'
+require 'pp'
+
+include GLI::App
+
+program_desc "Gliffy API Client"
+version "0.0.9"
+
+subcommand_option_handling :normal
+
+desc "Location of the credentials file (YAML)"
+arg_name "FILENAME"
+default_value File.join(Dir.home, ".gliffy-cli")
+flag [:credentials]
+
+desc "Account ID"
+arg_name "ID"
+flag ["account-id"]
+
+desc "Gliffy API consumer key"
+arg_name "KEY"
+flag ["consumer-key"]
+
+desc "Gliffy API consumer secret"
+arg_name "SECRET"
+flag ["consumer-secret"]
+
+desc "User to impersonate"
+arg_name "NAME"
+flag [:user]
+
+desc "Enable HTTP logging"
+switch "log-http"
+
+command :user do |c|
+  c.command :list do |sub|
+    sub.action do |global_options, options, args|
+      Gliffy::CLI::Task::User::List.new(global_options, options, args).run
+    end
+  end
+end
+
+exit run(ARGV)

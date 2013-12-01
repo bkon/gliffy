@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency('oauth')
   s.add_dependency('nokogiri')
+  s.add_dependency('gli')
 
   s.add_development_dependency('rspec', '>= 2.14')
   s.add_development_dependency('simplecov')

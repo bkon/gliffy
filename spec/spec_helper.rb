@@ -12,6 +12,7 @@ SimpleCov.start do
 end
 
 require 'gliffy'
+require 'gliffy/cli'
 Dir["./spec/support/**/*.rb"].sort.each {|f| require f}
 
 def fixture(filename, substitutions = {})
