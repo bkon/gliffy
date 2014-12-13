@@ -35,6 +35,9 @@ Basic usage
     doc.png.small
     doc.png.thumbnail
 
+#### Obtain a link to the PNG
+    doc.png_url 'L' # Large (original) size
+
 #### Download document as SVG
 
     doc.svg.content
