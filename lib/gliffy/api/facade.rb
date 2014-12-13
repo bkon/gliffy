@@ -37,6 +37,11 @@ module Gliffy
         api.web(web_root + partial_url, params)
       end
 
+      # Returns the URL to a diagram PNG, given its document_id.
+      def png_url docid, size='L'  # (L)arge (original), (M)edium, (S)mall, (T)humbnail
+        "http:#{Gliffy.web_root}" + api.web_by_api("/accounts/#{account_id}/documents/#{docid}.png", action:'get', size:size)
+      end
+
       # Path  is alphanumeric  +  spaces and  '/'.   Spaces should  be
       # escaped; slashes should NOT be escaped.
       def escape_path(path)
