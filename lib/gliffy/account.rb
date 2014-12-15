@@ -64,7 +64,12 @@ module Gliffy
 
     # Added functionality to create a new document
     def create_document name, docid, folder=nil
-      api.create_document name, 'diagram', docid, folder
+      response = api.create_document name, 'diagram', docid, folder
+
+       Gliffy::Document.load(
+        self,
+        response.node('//g:document')
+      )
     end
 
     private
