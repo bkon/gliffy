@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'gliffy'
-  s.version = '0.0.10'
+  s.version = '0.0.11'
   s.date = '2013-12-01'
   s.summary = 'Gliffy API client'
   s.description = 'A simple Gliffy REST API wrapper.'
