@@ -21,7 +21,7 @@ module Gliffy
     end
 
     def root
-      @root ||= load_root
+      load_root
     end
 
     def users
