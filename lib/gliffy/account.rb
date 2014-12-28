@@ -21,7 +21,7 @@ module Gliffy
     end
 
     def root
-      @root ||= load_root
+      load_root # this shouldn't be cached, as it's not being observed like users seem to be
     end
 
     def users
@@ -60,6 +60,26 @@ module Gliffy
       else
         raise ArgumentError.new(event)
       end
+    end
+
+    # Added functionality to create a new document
+    def create_document name, docid, folder=nil
+      response = api.create_document name, 'diagram', docid, folder
+
+       Gliffy::Document.load(
+        self,
+        response.node('//g:document')
+      )
+    end
+
+    # Added functionality to update the contents of a document based on a Gliffy XML (actually YML)
+    def update_document docid, content
+      response = api.update_document docid, content
+
+       Gliffy::Document.load(
+        self,
+        response.node('//g:document')
+      )
     end
 
     private

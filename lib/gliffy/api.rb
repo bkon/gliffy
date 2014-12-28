@@ -6,11 +6,13 @@ require 'cgi'
 module Gliffy
   class API
     attr_reader :consumer
+    attr_reader :api_consumer # used to create a web link, but via api_root 
     attr_reader :account_id
     attr_accessor :application_name
 
     def initialize(account_id, key, secret)
       @consumer = init_consumer(key, secret)
+      @api_consumer = init_api_consumer(key, secret) # used to create a web link, but via api_root
       @account_id = account_id
       @application_name = Gliffy.default_application_name
     end
@@ -39,6 +41,15 @@ module Gliffy
 
     def web(url, params)
       consumer.create_signed_request(
+        :get,
+        url + '?' + query(params),
+        token
+      ).path
+    end
+
+    # Use this method to obtain a URL that goes via the api_root endpoint
+    def web_by_api(url, params) ###
+      api_consumer.create_signed_request(
         :get,
         url + '?' + query(params),
         token
@@ -85,5 +96,13 @@ module Gliffy
                           :site => Gliffy.web_root,
                           :scheme => :query_string)
     end
+
+    # This consumer creates requests that go to the API endpoint.
+    def init_api_consumer(key, secret)
+      OAuth::Consumer.new(key,
+                          secret,
+                          :site => Gliffy.api_root,
+                          :scheme => :query_string)
+    end 
   end
 end

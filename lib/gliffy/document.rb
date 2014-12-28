@@ -84,6 +84,11 @@ module Gliffy
       Document::Presentation::PNG.new(self)
     end
 
+    # Use the png_url in Facade to retrieve the direct URL to a diagram PNG, not the actual contents of the PNG.
+    def png_url size=L # L, M, S, T
+      api.png_url id, size
+    end
+
     def public?
       is_public
     end
