@@ -21,7 +21,7 @@ module Gliffy
     end
 
     def root
-      load_root # this shouldn't be cached, as it's not being observed like users seemt to be
+      load_root # this shouldn't be cached, as it's not being observed like users seem to be
     end
 
     def users
