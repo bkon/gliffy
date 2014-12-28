@@ -139,6 +139,17 @@ module Gliffy
              params)
       end
 
+      # Added method to update the content of a document
+      def update_document docid, content
+        params = {
+          action:'update',
+          content:content
+        }
+        
+        post("/accounts/#{account_id}/documents/#{docid}.xml",
+             params)
+      end
+
       def create_folder(path)
         post("/accounts/#{account_id}/folders/#{path}.xml",
              :action => "create")
